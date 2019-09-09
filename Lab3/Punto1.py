@@ -75,3 +75,4 @@ mask = z>=1
 perro[mask] = 0
 plt.imshow(perro, cmap = 'gray', vmin = 0, vmax = 1)
 plt.show()
+input("Press Enter to continue...")
