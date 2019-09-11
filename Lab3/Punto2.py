@@ -39,4 +39,6 @@ while conf<=1:
     conf+=0.1
 print(puntosP,puntosR)
 plt.plot(puntosR,puntosP)
+plt.ylabel("Precisión")
+plt.xlabel("Cobertura")
 plt.show()

@@ -34,6 +34,7 @@ def my_histogram_equalizator(image, show_plot=True):
         plt.imshow(equalized_image, cmap='gray', vmin=0, vmax=L-1)
         plt.show()
         input("Press Enter to continue...")
+    return equalized_image
         
 image_url = "https://ak2.picdn.net/shutterstock/videos/15390892/thumb/1.jpg"
 r = requests.get(image_url)
