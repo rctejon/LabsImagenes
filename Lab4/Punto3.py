@@ -34,4 +34,5 @@ method2 = mat['method2'][0].astype(np.int8)
 method3 = mat['method3'][0].astype(np.int8)
 
 myACA_201424311_201617853(gt,method1)
-
+myACA_201424311_201617853(gt,method2)
+myACA_201424311_201617853(gt,method3)
