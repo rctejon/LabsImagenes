@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 22 20:43:53 2019
-
-@author: Mariana
-"""
-
 #Librerias utilizadas
 import numpy as np
 import matplotlib.pyplot as plt
