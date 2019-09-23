@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os, glob, pydicom
 import requests, zipfile
 import skimage.io as io
-import scipy.signal as sc
+import scipy.ndimage as sc
 import pdb
 
 def MyAdaptMedian_201424311_201617853(image, window_size, max_window_size):
@@ -65,56 +65,160 @@ def MyAdaptMedian_201424311_201617853(image, window_size, max_window_size):
     return returnImage[addColsNum:len(newImage)-addColsNum,addColsNum:len(newImage[0])-addColsNum]
 
 #Funcion para descargar archivos desde google drive
-def download_file_from_google_drive(id, destination):
-    URL = "https://docs.google.com/uc?export=download"
+# def download_file_from_google_drive(id, destination):
+#     URL = "https://docs.google.com/uc?export=download"
 
-    session = requests.Session()
+#     session = requests.Session()
 
-    response = session.get(URL, params = { 'id' : id }, stream = True)
-    token = get_confirm_token(response)
+#     response = session.get(URL, params = { 'id' : id }, stream = True)
+#     token = get_confirm_token(response)
 
-    if token:
-        params = { 'id' : id, 'confirm' : token }
-        response = session.get(URL, params = params, stream = True)
+#     if token:
+#         params = { 'id' : id, 'confirm' : token }
+#         response = session.get(URL, params = params, stream = True)
 
-    save_response_content(response, destination)    
+#     save_response_content(response, destination)    
 
-def get_confirm_token(response):
-    for key, value in response.cookies.items():
-        if key.startswith('download_warning'):
-            return value
+# def get_confirm_token(response):
+#     for key, value in response.cookies.items():
+#         if key.startswith('download_warning'):
+#             return value
 
-    return None
+#     return None
 
-def save_response_content(response, destination):
-    CHUNK_SIZE = 32768
+# def save_response_content(response, destination):
+#     CHUNK_SIZE = 32768
 
-    with open(destination, "wb") as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk: # filter out keep-alive new chunks
-                f.write(chunk)
+#     with open(destination, "wb") as f:
+#         for chunk in response.iter_content(CHUNK_SIZE):
+#             if chunk: # filter out keep-alive new chunks
+#                 f.write(chunk)
 
-#Descarga del .zip desde google drive y posterior extraccion de las imagenes
-file_name = 'ims.zip'
-download_file_from_google_drive('1-_C3WZlXDq5Awf2OvVULkCpF_p14Wwv_', file_name)
-with zipfile.ZipFile(file_name, 'r') as z:
-    z.extractall()
+# #Descarga del .zip desde google drive y posterior extraccion de las imagenes
+# file_name = 'ims.zip'
+# download_file_from_google_drive('1-_C3WZlXDq5Awf2OvVULkCpF_p14Wwv_', file_name)
+# with zipfile.ZipFile(file_name, 'r') as z:
+#     z.extractall()
 
 im1 = io.imread(os.path.join('ims',"im1.jpg")).astype(np.uint8)
 im2 = io.imread(os.path.join('ims',"im2.jpg")).astype(np.uint8)
 
-plt.suptitle('Window Size 7 - Im1')
+plt.suptitle('Median Adaptative Filter - Window Size 15 - Max Window Size 15')
 plt.subplot(221)
-plt.title('Original')
+plt.title('Original Im1')
 plt.imshow(im1, cmap='gray')
 plt.subplot(222)
-plt.title('Median Adaptative Filter')
-plt.imshow(MyAdaptMedian_201424311_201617853(im1,3,15), cmap='gray')
-plt.show()
-plt.subplot(121)
-plt.title('Original')
+plt.title('Median Adaptative Filter Im1')
+plt.imshow(MyAdaptMedian_201424311_201617853(im1,15,15), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
 plt.imshow(im2, cmap='gray')
-plt.subplot(122)
-plt.title('Median Adaptative Filter')
-plt.imshow(MyAdaptMedian_201424311_201617853(im2,3,15), cmap='gray')
+plt.subplot(224)
+plt.title('Median Adaptative Filter Im2')
+plt.imshow(MyAdaptMedian_201424311_201617853(im2,15,15), cmap='gray')
+plt.show()
+
+plt.suptitle('Median Adaptative Filter - Window Size 9 - Max Window Size 15')
+plt.subplot(221)
+plt.title('Original Im1')
+plt.imshow(im1, cmap='gray')
+plt.subplot(222)
+plt.title('Median Adaptative Filter Im1')
+plt.imshow(MyAdaptMedian_201424311_201617853(im1,9,15), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
+plt.imshow(im2, cmap='gray')
+plt.subplot(224)
+plt.title('Median Adaptative Filter Im2')
+plt.imshow(MyAdaptMedian_201424311_201617853(im2,9,15), cmap='gray')
+plt.show()
+
+plt.suptitle('Median Adaptative Filter - Window Size 5 - Max Window Size 15')
+plt.subplot(221)
+plt.title('Original Im1')
+plt.imshow(im1, cmap='gray')
+plt.subplot(222)
+plt.title('Median Adaptative Filter Im1')
+plt.imshow(MyAdaptMedian_201424311_201617853(im1,5,15), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
+plt.imshow(im2, cmap='gray')
+plt.subplot(224)
+plt.title('Median Adaptative Filter Im2')
+plt.imshow(MyAdaptMedian_201424311_201617853(im2,5,15), cmap='gray')
+plt.show()
+
+plt.suptitle('Median Adaptative Filter - Window Size 3 - Max Window Size 5 ')
+plt.subplot(221)
+plt.title('Original Im1')
+plt.imshow(im1, cmap='gray')
+plt.subplot(222)
+plt.title('Median Adaptative Filter Im1')
+plt.imshow(MyAdaptMedian_201424311_201617853(im1,3,5), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
+plt.imshow(im2, cmap='gray')
+plt.subplot(224)
+plt.title('Median Adaptative Filter Im2')
+plt.imshow(MyAdaptMedian_201424311_201617853(im2,3,5), cmap='gray')
+plt.show()
+
+plt.suptitle('Gaussian Filter - Sigma 1 ')
+plt.subplot(221)
+plt.title('Original Im1')
+plt.imshow(im1, cmap='gray')
+plt.subplot(222)
+plt.title('Gaussian Filter Im1')
+plt.imshow(sc.gaussian_filter(im1,sigma=1), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
+plt.imshow(im2, cmap='gray')
+plt.subplot(224)
+plt.title('Gaussian Filter Im2')
+plt.imshow(sc.gaussian_filter(im2,sigma=1), cmap='gray')
+plt.show()
+
+plt.suptitle('Gaussian Filter - Sigma 2 ')
+plt.subplot(221)
+plt.title('Original Im1')
+plt.imshow(im1, cmap='gray')
+plt.subplot(222)
+plt.title('Gaussian Filter Im1')
+plt.imshow(sc.gaussian_filter(im1,sigma=2), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
+plt.imshow(im2, cmap='gray')
+plt.subplot(224)
+plt.title('Gaussian Filter Im2')
+plt.imshow(sc.gaussian_filter(im2,sigma=2), cmap='gray')
+plt.show()
+
+plt.suptitle('Gaussian Filter - Sigma 3 ')
+plt.subplot(221)
+plt.title('Original Im1')
+plt.imshow(im1, cmap='gray')
+plt.subplot(222)
+plt.title('Gaussian Filter Im1')
+plt.imshow(sc.gaussian_filter(im1,sigma=3), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
+plt.imshow(im2, cmap='gray')
+plt.subplot(224)
+plt.title('Gaussian Filter Im2')
+plt.imshow(sc.gaussian_filter(im2,sigma=3), cmap='gray')
+plt.show()
+
+plt.suptitle('Best Filtes ')
+plt.subplot(221)
+plt.title('Original Im1')
+plt.imshow(im1, cmap='gray')
+plt.subplot(222)
+plt.title('Median Adaptative Filter - Window Size 3 - Max Window Size 5')
+plt.imshow(MyAdaptMedian_201424311_201617853(im1,3,5), cmap='gray')
+plt.subplot(223)
+plt.title('Original Im2')
+plt.imshow(im2, cmap='gray')
+plt.subplot(224)
+plt.title('Gaussian Filter Sigma=2')
+plt.imshow(sc.gaussian_filter(im2,sigma=2), cmap='gray')
 plt.show()
