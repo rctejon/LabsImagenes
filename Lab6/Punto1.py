@@ -132,10 +132,13 @@ commands = [['hsv', 's', 2],
             ['hsv', 'h', 0],
             ['rgb', 'b', 0]]
 
+if not os.path.exists('ims'):
+    os.mkdir('ims')
+
 for i in range(len(images)):
     image = images[i]
     command = commands[i]
-    plt.suptitle(f'Image {i+1}')
+    plt.figure(figsize = (12, 6))
     plt.subplot(1, 2, 1)
     plt.title('Original')
     plt.imshow(image)
@@ -143,5 +146,6 @@ for i in range(len(images)):
     plt.subplot(1, 2, 2)
     plt.title('Modified')
     plt.imshow(new_image)
+    plt.savefig(f'ims/plot{i+1}.png')
     plt.show()
     input("Press Enter to continue...")
