@@ -127,47 +127,21 @@ files = [f for f in glob.glob(os.path.join('colorful_ims','*.jpg'), recursive=Tr
 #Obtener un array con todas las imagenes 
 images = [io.imread(os.path.join(f)) for f in files]
 
-for image in images:
-    new_image = MyModifyChannel_201424311_201617853(image, 'rgb', 'b', 0)
+commands = [['hsv', 's', 2],
+            ['lab', 'b', 0],
+            ['hsv', 'h', 0],
+            ['rgb', 'b', 0]]
+
+for i in range(len(images)):
+    image = images[i]
+    command = commands[i]
+    plt.suptitle(f'Image {i+1}')
+    plt.subplot(1, 2, 1)
+    plt.title('Original')
+    plt.imshow(image)
+    new_image = MyModifyChannel_201424311_201617853(image, command[0], command[1], command[2])
+    plt.subplot(1, 2, 2)
+    plt.title('Modified')
     plt.imshow(new_image)
     plt.show()
-
-image = images[0]
-plt.subplot(1, 2, 1)
-plt.title('Original')
-plt.imshow(image)
-new_image = MyModifyChannel_201424311_201617853(image, 'hsv', 's', 2)
-plt.subplot(1, 2, 2)
-plt.title('Modified')
-plt.imshow(new_image)
-plt.show()
-
-image = images[1]
-plt.subplot(1, 2, 1)
-plt.title('Original')
-plt.imshow(image)
-new_image = MyModifyChannel_201424311_201617853(image, 'lab', 'b', 0)
-plt.subplot(1, 2, 2)
-plt.title('Modified')
-plt.imshow(new_image)
-plt.show()
-
-image = images[2]
-plt.subplot(1, 2, 1)
-plt.title('Original')
-plt.imshow(image)
-new_image = MyModifyChannel_201424311_201617853(image, 'hsv', 'h', 0)
-plt.subplot(1, 2, 2)
-plt.title('Modified')
-plt.imshow(new_image)
-plt.show()
-
-image = images[3]
-plt.subplot(1, 2, 1)
-plt.title('Original')
-plt.imshow(image)
-new_image = MyModifyChannel_201424311_201617853(image, 'rgb', 'b', 0)
-plt.subplot(1, 2, 2)
-plt.title('Modified')
-plt.imshow(new_image)
-plt.show()
+    input("Press Enter to continue...")
