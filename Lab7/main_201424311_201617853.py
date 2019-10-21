@@ -16,7 +16,7 @@ with open("imagen.png", "wb") as f:
 #Cargar la imagen en la variable image y mostrarla
 image = rgb2gray(io.imread(os.path.join("imagen.png")))
 val = filters.threshold_otsu(image)
-image=image > val
+binimage=image > val
 def extractComponent(binary_image, labeled_image,i,j,k,conn):
     X0 = []
     X1 = np.full_like(labeled_image,False)
@@ -49,15 +49,51 @@ def MyConnComp_201424311_201617853(binary_image, conn):
                             index_vector.append(i1*(len(component)-1)+j1)
                 pixel_labels.append(index_vector)
                 k+=1
-
-    print(np.max(labeled_image))
-    labeled_image = measure.label(binary_image,connectivity=(1 if conn==4 else 2 ))
-    print(np.max(labeled_image))
-    plt.imshow(labeled_image, cmap='gray')
-    plt.show()
     return (labeled_image,pixel_labels)
 
-MyConnComp_201424311_201617853(image,8)
+compImage, pixelLabels=MyConnComp_201424311_201617853(binimage,8)
 
-plt.imshow( image, cmap='gray', interpolation='nearest')
+plt.subplot(131)
+plt.title('Original')
+plt.imshow( image, cmap='gray')
+plt.subplot(132)
+plt.title('Binary Image')
+plt.imshow( binimage, cmap='gray')
+plt.subplot(133)
+plt.title('Result Image')
+plt.imshow( compImage, cmap='gray', interpolation='nearest')
+plt.show()
+
+image1 = np.full((15,15),False)
+image1[3:-3,3:-3]=np.full((9,9),True)
+compImage11, pixelLabels11=MyConnComp_201424311_201617853(image1,4)
+compImage12, pixelLabels12=MyConnComp_201424311_201617853(image1,8)
+plt.subplot(131)
+plt.title('Original')
+plt.imshow(image1,cmap='gray')
+plt.subplot(132)
+plt.title('4 Vecindad')
+plt.imshow(compImage11,cmap='gray')
+plt.subplot(133)
+plt.title('8 Vencidad')
+plt.imshow(compImage12,cmap='gray')
+plt.show()
+
+image2 = np.full((15,15),False)
+image2[5:-5,5:-5]=np.full((5,5),True)
+image2[:5,:5]=np.full((5,5),True)
+image2[-5:,-5:]=np.full((5,5),True)
+image2[:5,-5:]=np.full((5,5),True)
+image2[-5:,:5]=np.full((5,5),True)
+compImage21, pixelLabels21=MyConnComp_201424311_201617853(image2,4)
+compImage22, pixelLabels22=MyConnComp_201424311_201617853(image2,8)
+plt.subplot(131)
+plt.title('Original')
+plt.imshow(image2,cmap='gray')
+plt.subplot(132)
+plt.title('4 Vecindad')
+plt.imshow(compImage21,cmap='gray')
+plt.subplot(133)
+plt.title('8 Vencidad')
+plt.imshow(compImage22,cmap='gray')
 plt.show()
