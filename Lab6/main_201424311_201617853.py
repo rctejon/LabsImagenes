@@ -138,11 +138,7 @@ if not os.path.exists('ims'):
 for i in range(len(images)):
     image = images[i]
     command = commands[i]
-<<<<<<< HEAD
-    plt.figure(figsize = (12, 6))
-=======
     plt.figure(figsize = (14, 6))
->>>>>>> 5b805f8136d9943820e1fefc17a210d19d22d56d
     plt.subplot(1, 2, 1)
     plt.title('Original')
     plt.imshow(image)
