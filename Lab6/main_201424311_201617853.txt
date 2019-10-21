@@ -9,9 +9,7 @@ import pdb
 from skimage import io
 from skimage.color import rgb2lab, rgb2hsv, lab2rgb, hsv2rgb
 
-# ------------
-# --PUNTO 1---
-# -----------------------------------------------------
+
 # =============================================================================
 #                                   PUNTO 1
 # =============================================================================
@@ -138,7 +136,11 @@ if not os.path.exists('ims'):
 for i in range(len(images)):
     image = images[i]
     command = commands[i]
+
+    plt.figure(figsize = (14, 6))
+=======
     plt.figure(figsize = (12, 6))
+>>>>>>> 907ef774949b6cebf1c1603eca45b3b13ac048e1
     plt.subplot(1, 2, 1)
     plt.title('Original')
     plt.imshow(image)

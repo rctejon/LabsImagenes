@@ -9,13 +9,6 @@ import pdb
 from skimage import io
 from skimage.color import rgb2lab, rgb2hsv, lab2rgb, hsv2rgb
 
-# ------------
-# --PUNTO 1---
-# -----------------------------------------------------
-# =============================================================================
-#                                   PUNTO 1
-# =============================================================================
-
 # =============================================================================
 # Function that converts from one color space to another and then manipulates a
 # certain channel

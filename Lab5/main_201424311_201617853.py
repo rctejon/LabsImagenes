@@ -200,42 +200,42 @@ def MyAdaptMedian_201424311_201617853(image, window_size, max_window_size):
                     i+=1
     #Se retorna el centro de la imagen
     return returnImage[addColsNum:len(newImage)-addColsNum,addColsNum:len(newImage[0])-addColsNum]
-
+    
 #Funcion para descargar archivos desde google drive
-# def download_file_from_google_drive(id, destination):
-#     URL = "https://docs.google.com/uc?export=download"
+def download_file_from_google_drive(id, destination):
+    URL = "https://docs.google.com/uc?export=download"
 
-#     session = requests.Session()
+    session = requests.Session()
 
-#     response = session.get(URL, params = { 'id' : id }, stream = True)
-#     token = get_confirm_token(response)
+    response = session.get(URL, params = { 'id' : id }, stream = True)
+    token = get_confirm_token(response)
 
-#     if token:
-#         params = { 'id' : id, 'confirm' : token }
-#         response = session.get(URL, params = params, stream = True)
+    if token:
+        params = { 'id' : id, 'confirm' : token }
+        response = session.get(URL, params = params, stream = True)
 
-#     save_response_content(response, destination)    
+    save_response_content(response, destination)    
 
-# def get_confirm_token(response):
-#     for key, value in response.cookies.items():
-#         if key.startswith('download_warning'):
-#             return value
+def get_confirm_token(response):
+    for key, value in response.cookies.items():
+        if key.startswith('download_warning'):
+            return value
 
-#     return None
+    return None
 
-# def save_response_content(response, destination):
-#     CHUNK_SIZE = 32768
+def save_response_content(response, destination):
+    CHUNK_SIZE = 32768
 
-#     with open(destination, "wb") as f:
-#         for chunk in response.iter_content(CHUNK_SIZE):
-#             if chunk: # filter out keep-alive new chunks
-#                 f.write(chunk)
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(CHUNK_SIZE):
+            if chunk: # filter out keep-alive new chunks
+                f.write(chunk)
 
-# #Descarga del .zip desde google drive y posterior extraccion de las imagenes
-# file_name = 'ims.zip'
-# download_file_from_google_drive('1-_C3WZlXDq5Awf2OvVULkCpF_p14Wwv_', file_name)
-# with zipfile.ZipFile(file_name, 'r') as z:
-#     z.extractall()
+#Descarga del .zip desde google drive y posterior extraccion de las imagenes
+file_name = 'ims.zip'
+download_file_from_google_drive('1-_C3WZlXDq5Awf2OvVULkCpF_p14Wwv_', file_name)
+with zipfile.ZipFile(file_name, 'r') as z:
+    z.extractall()
 
 im1 = io.imread(os.path.join('ims',"im1.jpg")).astype(np.uint8)
 im2 = io.imread(os.path.join('ims',"im2.jpg")).astype(np.uint8)
