@@ -7,7 +7,12 @@ import os
 import imageio
 import threading
 
-def MyVQ_training_Codigo1_Codigo2(grayscale_image, window_size, k):
+
+# =============================================================================
+#                                   PUNTO 2
+# =============================================================================
+
+def MyVQ_training_201424311_201617853(grayscale_image, window_size, k):
     num1=int((window_size-1)/2)
     vectorArray = []
     labeled_image = np.zeros_like(grayscale_image)
@@ -26,7 +31,7 @@ def MyVQ_training_Codigo1_Codigo2(grayscale_image, window_size, k):
             num += 1
     return model , labeled_image
 
-def MyVQ_predict_Codigo1_Codigo2(grayscale_image, window_size, model):
+def MyVQ_predict_201424311_201617853(grayscale_image, window_size, model):
     num1=int((window_size-1)/2)
     labeled_image = np.zeros_like(grayscale_image)
     for i in range(num1, len(grayscale_image)-num1):
@@ -44,7 +49,7 @@ for im in dirs:
         images.append(rgb2gray(io.imread(os.path.join('video',im))))
     k+=1
 
-model, seg = MyVQ_training_Codigo1_Codigo2(images[0], 3,2)
+model, seg = MyVQ_training_201424311_201617853(images[0], 3,2)
 
 gifImages = images.copy()
 
@@ -54,6 +59,6 @@ def segImage( i ):
 with imageio.get_writer(os.path.join('duck1.gif'), mode='I') as writer:
     for i in range(len(images)):
         print('inicio ',i)
-        gifImages[i] = MyVQ_predict_Codigo1_Codigo2(images[i],3,model) 
+        gifImages[i] = MyVQ_predict_201424311_201617853(images[i],3,model) 
         print('fin',i)
         writer.append_data(gifImages[i])
