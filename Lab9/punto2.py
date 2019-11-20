@@ -30,8 +30,8 @@ def CalculateFilterResponse_201424311_201617853(grayscale_image, filters):
     return res
 
 def CalculateTextonDictionary_201424311_201617853(image_names, filters, k,filename):
-    if len(scipyio.loadmat('textonDictionary_201424311_201617853.mat')['model'])>0:
-        return scipyio.loadmat('textonDictionary_201424311_201617853.mat')['model']
+    # if len(scipyio.loadmat('textonDictionary_201424311_201617853.mat')['model'])>0:
+    #     return scipyio.loadmat('textonDictionary_201424311_201617853.mat')['model']
     vectorArray=[]
     for im in tqdm(image_names):
         image = rgb2gray(mpimg.imread(os.path.join(im)))
@@ -79,7 +79,7 @@ mat = scipyio.loadmat('filterbank.mat')
 
 listImage = [os.path.join('train',m)  for m in os.listdir('train')]
 
-centroids = CalculateTextonDictionary_201424311_201617853(listImage,mat['filterbank'],5,'textonDictionary_Código1_Código2.mat')
+centroids = CalculateTextonDictionary_201424311_201617853(listImage,mat['filterbank'],2,'textonDictionaryk=3.mat')
 print(centroids)
 train_hists=[]
 for im in tqdm(listImage):
